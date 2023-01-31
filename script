@@ -1,0 +1,38 @@
+#!/bin/bash
+#Author: Angelina
+#Date: Jan 2023
+# Description: Installation of Jenkins on new machine
+
+####################################################################
+  sudo yum install net-tools wget -y
+
+####################################################################
+  sudo yum install firewalld -y
+  sudo systemctl enable firewalld
+  sudo systemctl start firewalld
+  sudo systemctl status firewalld
+
+####################################################################
+  sudo wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat-stable/jenkins.repo
+  sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
+  sudo yum upgrade
+
+###################################################################
+  sudo yum install java-11-openjdk -y
+  sudo yum install jenkins -y
+
+####################################################################
+  sudo systemctl enable jenkins
+  sudo systemctl start jenkins
+  sudo systemctl status jenkins
+
+###################################################################
+  sudo firewall-cmd --add-service=jenkins --permanent
+  sudo firewall-cmd --add-port=8080/tcp --permanent
+  sudo firewall-cmd --reload
+
+#################################################################### 
+  cat /var/jenkins_home/secrets/initialAdminPassword
+  ifconfig
+
